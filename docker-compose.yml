@@ -1,5 +1,13 @@
 version: '3.8'
 
+volumes:
+  ela-postgres-data:
+    name: ela-postgres-data
+    driver: local
+  ela-pgadmin-data:
+    name: ela-pgadmin-data
+    driver: local
+
 networks:
   ela-network:
     name: ela-network
@@ -7,9 +15,49 @@ networks:
 
 services:
 
+  postgres:
+    image: postgres:14.1-alpine
+    volumes:
+      - ela-postgres-data:/var/lib/postgresql/data
+      - ./docker/postgres:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 30s
+      timeout: 5s
+    networks:
+      - ela-network
+    ports:
+      - "5432:5432"
+    hostname: ela-postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "15432:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@ela.hr
+      - PGADMIN_DEFAULT_PASSWORD=admin
+      - PGADMIN_LISTEN_ADDRESS=0.0.0.0
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --spider http://localhost/misc/ping || exit 1" ]
+      interval: 1m
+      timeout: 30s
+    networks:
+      - ela-network
+    volumes:
+      - ela-pgadmin-data:/var/lib/pgadmin
+      - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
+    depends_on:
+      - postgres
+
   backend-service:
     build: .
     image: backend-service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/ela
     healthcheck:
       test: "curl --fail --silent http://localhost:8080/actuator/health | grep UP || exit 1"
       interval: 30s
@@ -19,3 +67,5 @@ services:
       - ela-network
     ports:
       - "8080:8080"
+    depends_on:
+      - postgres
