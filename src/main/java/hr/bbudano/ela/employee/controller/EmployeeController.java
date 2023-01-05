@@ -1,15 +1,12 @@
 package hr.bbudano.ela.employee.controller;
 
+import hr.bbudano.ela.employee.dto.CreateEmployeeRequest;
 import hr.bbudano.ela.employee.dto.EmployeeView;
-import hr.bbudano.ela.employee.mapper.EmployeeMapper;
 import hr.bbudano.ela.employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/v1/employees")
@@ -17,19 +14,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
-    private final EmployeeMapper employeeMapper;
+
+    @PostMapping
+    public EmployeeView createEmployee(@RequestBody CreateEmployeeRequest createEmployeeRequest) {
+        return employeeService.createEmployee(createEmployeeRequest);
+    }
 
     @GetMapping
     public Page<EmployeeView> getEmployees(Pageable pageable) {
-        return employeeService
-                .getEmployees(pageable)
-                .map(employeeMapper::toEmployeeView);
+        return employeeService.getEmployees(pageable);
     }
 
     @GetMapping("/{id}")
     public EmployeeView getEmployee(@PathVariable Long id) {
-        var employee = employeeService.getEmployee(id);
-        return employeeMapper.toEmployeeView(employee);
+        return employeeService.getEmployee(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable Long id) {
+        employeeService.deleteEmployee(id);
     }
 
 }
