@@ -2,6 +2,7 @@ package hr.bbudano.ela.employee.service;
 
 import hr.bbudano.ela.employee.dto.CreateEmployeeRequest;
 import hr.bbudano.ela.employee.dto.EmployeeView;
+import hr.bbudano.ela.employee.dto.UpdateEmployeeRequest;
 import hr.bbudano.ela.employee.mapper.EmployeeMapper;
 import hr.bbudano.ela.employee.model.Employee;
 import hr.bbudano.ela.employee.repository.EmployeeRepository;
@@ -35,6 +36,13 @@ public class EmployeeService {
     @Transactional(readOnly = true)
     public EmployeeView getEmployee(Long id) {
         var employee = getEmployeeById(id);
+        return employeeMapper.toEmployeeView(employee);
+    }
+
+    @Transactional
+    public EmployeeView updateEmployee(Long id, UpdateEmployeeRequest updateEmployeeRequest) {
+        var employee = getEmployeeById(id);
+        employeeMapper.updateEmployee(employee, updateEmployeeRequest);
         return employeeMapper.toEmployeeView(employee);
     }
 

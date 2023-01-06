@@ -2,6 +2,7 @@ package hr.bbudano.ela.employee.controller;
 
 import hr.bbudano.ela.employee.dto.CreateEmployeeRequest;
 import hr.bbudano.ela.employee.dto.EmployeeView;
+import hr.bbudano.ela.employee.dto.UpdateEmployeeRequest;
 import hr.bbudano.ela.employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,12 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public EmployeeView getEmployee(@PathVariable Long id) {
         return employeeService.getEmployee(id);
+    }
+
+    @PutMapping("/{id}")
+    public EmployeeView updateEmployee(@PathVariable Long id,
+                                       @RequestBody UpdateEmployeeRequest updateEmployeeRequest) {
+        return employeeService.updateEmployee(id, updateEmployeeRequest);
     }
 
     @DeleteMapping("/{id}")
