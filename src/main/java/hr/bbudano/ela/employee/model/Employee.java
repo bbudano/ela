@@ -15,6 +15,7 @@ public class Employee {
     @SequenceGenerator(name = "employee_id_seq_generator", sequenceName = "employee_id_seq",
             initialValue = 10, allocationSize = 10)
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "employee_id_seq_generator")
+    @Column(name = "id", updatable = false)
     private Long id;
 
     @Column(name = "email", nullable = false)
