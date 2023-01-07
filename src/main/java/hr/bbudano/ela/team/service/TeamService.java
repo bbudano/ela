@@ -39,6 +39,11 @@ public class TeamService {
         return teamMapper.toTeamView(team);
     }
 
+    public void deleteTeam(Long id) {
+        var team = getTeamById(id);
+        teamRepository.delete(team);
+    }
+
     // General
 
     private Team getTeamById(Long id) {
