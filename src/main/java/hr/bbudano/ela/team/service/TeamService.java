@@ -1,5 +1,6 @@
 package hr.bbudano.ela.team.service;
 
+import hr.bbudano.ela.team.dto.CreateTeamRequest;
 import hr.bbudano.ela.team.dto.TeamView;
 import hr.bbudano.ela.team.mapper.TeamMapper;
 import hr.bbudano.ela.team.model.Team;
@@ -18,6 +19,12 @@ public class TeamService {
     private final TeamMapper teamMapper;
 
     // REST
+
+    public TeamView createTeam(CreateTeamRequest createTeamRequest) {
+        var team = teamMapper.toTeam(createTeamRequest);
+        teamRepository.saveAndFlush(team);
+        return teamMapper.toTeamView(team);
+    }
 
     @Transactional(readOnly = true)
     public Page<TeamView> getTeams(Pageable pageable) {

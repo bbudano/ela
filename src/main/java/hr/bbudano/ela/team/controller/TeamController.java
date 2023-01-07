@@ -1,14 +1,12 @@
 package hr.bbudano.ela.team.controller;
 
+import hr.bbudano.ela.team.dto.CreateTeamRequest;
 import hr.bbudano.ela.team.dto.TeamView;
 import hr.bbudano.ela.team.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(path = "/api/v1/teams")
@@ -16,6 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class TeamController {
 
     private final TeamService teamService;
+
+    @PostMapping
+    public TeamView createTeam(@RequestBody CreateTeamRequest createTeamRequest) {
+        return teamService.createTeam(createTeamRequest);
+    }
 
     @GetMapping
     public Page<TeamView> getTeams(Pageable pageable) {
