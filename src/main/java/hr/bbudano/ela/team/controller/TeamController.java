@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +20,11 @@ public class TeamController {
     @GetMapping
     public Page<TeamView> getTeams(Pageable pageable) {
         return teamService.getTeams(pageable);
+    }
+
+    @GetMapping("/{id}")
+    public TeamView getTeam(@PathVariable Long id) {
+        return teamService.getTeam(id);
     }
 
 }

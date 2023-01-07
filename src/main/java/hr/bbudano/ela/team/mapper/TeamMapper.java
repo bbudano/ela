@@ -9,6 +9,6 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface TeamMapper {
 
-    TeamView toGroupView(Team team);
+    TeamView toTeamView(Team team);
 
 }

@@ -2,12 +2,13 @@ package hr.bbudano.ela.team.service;
 
 import hr.bbudano.ela.team.dto.TeamView;
 import hr.bbudano.ela.team.mapper.TeamMapper;
+import hr.bbudano.ela.team.model.Team;
 import hr.bbudano.ela.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,11 +17,26 @@ public class TeamService {
     private final TeamRepository teamRepository;
     private final TeamMapper teamMapper;
 
-    @GetMapping
+    // REST
+
+    @Transactional(readOnly = true)
     public Page<TeamView> getTeams(Pageable pageable) {
         return teamRepository
                 .findAll(pageable)
-                .map(teamMapper::toGroupView);
+                .map(teamMapper::toTeamView);
+    }
+
+    @Transactional(readOnly = true)
+    public TeamView getTeam(Long id) {
+        var team = getTeamById(id);
+        return teamMapper.toTeamView(team);
+    }
+
+    // General
+
+    private Team getTeamById(Long id) {
+        return teamRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Team not found by id: " + id));
     }
 
 }
