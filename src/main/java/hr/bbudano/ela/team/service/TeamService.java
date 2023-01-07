@@ -2,6 +2,7 @@ package hr.bbudano.ela.team.service;
 
 import hr.bbudano.ela.team.dto.CreateTeamRequest;
 import hr.bbudano.ela.team.dto.TeamView;
+import hr.bbudano.ela.team.dto.UpdateTeamRequest;
 import hr.bbudano.ela.team.mapper.TeamMapper;
 import hr.bbudano.ela.team.model.Team;
 import hr.bbudano.ela.team.repository.TeamRepository;
@@ -36,6 +37,13 @@ public class TeamService {
     @Transactional(readOnly = true)
     public TeamView getTeam(Long id) {
         var team = getTeamById(id);
+        return teamMapper.toTeamView(team);
+    }
+
+    @Transactional
+    public TeamView updateTeam(Long id, UpdateTeamRequest updateTeamRequest) {
+        var team = getTeamById(id);
+        teamMapper.mapTeam(team, updateTeamRequest);
         return teamMapper.toTeamView(team);
     }
 

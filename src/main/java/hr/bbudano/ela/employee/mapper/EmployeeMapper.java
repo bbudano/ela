@@ -15,6 +15,6 @@ public interface EmployeeMapper {
     Employee toEmployee(CreateEmployeeRequest createEmployeeRequest);
 
     @Mapping(target = "id", ignore = true)
-    void updateEmployee(@MappingTarget Employee employee, UpdateEmployeeRequest updateEmployeeRequest);
+    void mapEmployee(@MappingTarget Employee employee, UpdateEmployeeRequest updateEmployeeRequest);
 
 }

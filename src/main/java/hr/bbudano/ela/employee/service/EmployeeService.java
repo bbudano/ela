@@ -42,7 +42,7 @@ public class EmployeeService {
     @Transactional
     public EmployeeView updateEmployee(Long id, UpdateEmployeeRequest updateEmployeeRequest) {
         var employee = getEmployeeById(id);
-        employeeMapper.updateEmployee(employee, updateEmployeeRequest);
+        employeeMapper.mapEmployee(employee, updateEmployeeRequest);
         return employeeMapper.toEmployeeView(employee);
     }
 
