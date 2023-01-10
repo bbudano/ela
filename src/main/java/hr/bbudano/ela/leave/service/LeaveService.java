@@ -1,11 +1,13 @@
 package hr.bbudano.ela.leave.service;
 
+import hr.bbudano.ela.exception.ElaException;
 import hr.bbudano.ela.leave.dto.CreateLeaveRequest;
 import hr.bbudano.ela.leave.dto.LeaveView;
 import hr.bbudano.ela.leave.mapper.LeaveMapper;
 import hr.bbudano.ela.leave.repository.LeaveRepository;
 import hr.bbudano.ela.leave.repository.LeaveTypeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,7 +22,10 @@ public class LeaveService {
         var leave = leaveMapper.toLeave(createLeaveRequest);
 
         var leaveType = leaveTypeRepository.findById(createLeaveRequest.leaveTypeId())
-                .orElseThrow(() -> new RuntimeException("Leave type not found by id: " + createLeaveRequest.leaveTypeId()));
+                .orElseThrow(() ->
+                        new ElaException("Leave type not found by id: " + createLeaveRequest.leaveTypeId(), HttpStatus.BAD_REQUEST)
+                );
+
         leave.setLeaveType(leaveType);
 
         leaveRepository.saveAndFlush(leave);

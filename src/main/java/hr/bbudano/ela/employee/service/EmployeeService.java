@@ -6,10 +6,12 @@ import hr.bbudano.ela.employee.dto.UpdateEmployeeRequest;
 import hr.bbudano.ela.employee.mapper.EmployeeMapper;
 import hr.bbudano.ela.employee.model.Employee;
 import hr.bbudano.ela.employee.repository.EmployeeRepository;
+import hr.bbudano.ela.exception.ElaException;
 import hr.bbudano.ela.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +29,9 @@ public class EmployeeService {
         var employee = employeeMapper.toEmployee(createEmployeeRequest);
 
         var team = teamRepository.findById(createEmployeeRequest.teamId())
-                .orElseThrow(() -> new RuntimeException("Team not found by id: " + createEmployeeRequest.teamId()));
+                .orElseThrow(() ->
+                        new ElaException("Team not found by id: " + createEmployeeRequest.teamId(), HttpStatus.BAD_REQUEST)
+                );
 
         employee.setTeam(team);
 
@@ -55,7 +59,9 @@ public class EmployeeService {
         employeeMapper.mapEmployee(employee, updateEmployeeRequest);
 
         var team = teamRepository.findById(updateEmployeeRequest.teamId())
-                .orElseThrow(() -> new RuntimeException("Team not found by id: " + updateEmployeeRequest.teamId()));
+                .orElseThrow(() ->
+                        new ElaException("Team not found by id: " + updateEmployeeRequest.teamId(), HttpStatus.BAD_REQUEST)
+                );
 
         employee.setTeam(team);
 
@@ -72,7 +78,9 @@ public class EmployeeService {
     public Employee getEmployeeById(Long id) {
         return employeeRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Employee not found by id: " + id));
+                .orElseThrow(() ->
+                        new ElaException("Employee not found by id: " + id, HttpStatus.NOT_FOUND)
+                );
     }
 
 }

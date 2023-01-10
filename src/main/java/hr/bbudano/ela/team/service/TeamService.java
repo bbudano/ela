@@ -1,5 +1,6 @@
 package hr.bbudano.ela.team.service;
 
+import hr.bbudano.ela.exception.ElaException;
 import hr.bbudano.ela.team.dto.CreateTeamRequest;
 import hr.bbudano.ela.team.dto.TeamView;
 import hr.bbudano.ela.team.dto.UpdateTeamRequest;
@@ -9,6 +10,7 @@ import hr.bbudano.ela.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,7 +58,9 @@ public class TeamService {
 
     private Team getTeamById(Long id) {
         return teamRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Team not found by id: " + id));
+                .orElseThrow(() ->
+                        new ElaException("Team not found by id: " + id, HttpStatus.NOT_FOUND)
+                );
     }
 
 }
