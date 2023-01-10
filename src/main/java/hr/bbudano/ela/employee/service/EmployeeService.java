@@ -27,7 +27,7 @@ public class EmployeeService {
         var employee = employeeMapper.toEmployee(createEmployeeRequest);
 
         var team = teamRepository.findById(createEmployeeRequest.teamId())
-                        .orElseThrow(() -> new RuntimeException("Team not found by id: " + createEmployeeRequest.teamId()));
+                .orElseThrow(() -> new RuntimeException("Team not found by id: " + createEmployeeRequest.teamId()));
 
         employee.setTeam(team);
 
@@ -51,7 +51,14 @@ public class EmployeeService {
     @Transactional
     public EmployeeView updateEmployee(Long id, UpdateEmployeeRequest updateEmployeeRequest) {
         var employee = getEmployeeById(id);
+
         employeeMapper.mapEmployee(employee, updateEmployeeRequest);
+
+        var team = teamRepository.findById(updateEmployeeRequest.teamId())
+                .orElseThrow(() -> new RuntimeException("Team not found by id: " + updateEmployeeRequest.teamId()));
+
+        employee.setTeam(team);
+
         return employeeMapper.toEmployeeView(employee);
     }
 

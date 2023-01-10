@@ -19,7 +19,7 @@ public class Employee {
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Team team;
 
     @Column(name = "email", nullable = false)
