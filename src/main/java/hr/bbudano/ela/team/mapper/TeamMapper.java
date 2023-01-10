@@ -9,6 +9,7 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR, unmappedTargetPolicy = ReportingPolicy.WARN)
 public interface TeamMapper {
 
+    @Named("toTeamView")
     TeamView toTeamView(Team team);
 
     @Mapping(target = "id", ignore = true)

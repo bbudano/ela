@@ -6,6 +6,7 @@ import hr.bbudano.ela.employee.dto.UpdateEmployeeRequest;
 import hr.bbudano.ela.employee.mapper.EmployeeMapper;
 import hr.bbudano.ela.employee.model.Employee;
 import hr.bbudano.ela.employee.repository.EmployeeRepository;
+import hr.bbudano.ela.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,13 +18,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final TeamRepository teamRepository;
     private final EmployeeMapper employeeMapper;
 
     // REST
 
     public EmployeeView createEmployee(CreateEmployeeRequest createEmployeeRequest) {
         var employee = employeeMapper.toEmployee(createEmployeeRequest);
+
+        var team = teamRepository.findById(createEmployeeRequest.teamId())
+                        .orElseThrow(() -> new RuntimeException("Team not found by id: " + createEmployeeRequest.teamId()));
+
+        employee.setTeam(team);
+
         employeeRepository.saveAndFlush(employee);
+
         return employeeMapper.toEmployeeView(employee);
     }
 

@@ -1,5 +1,6 @@
 package hr.bbudano.ela.employee.model;
 
+import hr.bbudano.ela.team.model.Team;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,6 +18,9 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "employee_id_seq_generator")
     @Column(name = "id", updatable = false)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Team team;
 
     @Column(name = "email", nullable = false)
     private String email;
