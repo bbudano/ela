@@ -4,6 +4,7 @@ import hr.bbudano.ela.employee.dto.CreateEmployeeRequest;
 import hr.bbudano.ela.employee.dto.EmployeeView;
 import hr.bbudano.ela.employee.dto.UpdateEmployeeRequest;
 import hr.bbudano.ela.employee.service.EmployeeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @PostMapping
-    public EmployeeView createEmployee(@RequestBody CreateEmployeeRequest createEmployeeRequest) {
+    public EmployeeView createEmployee(@Valid @RequestBody CreateEmployeeRequest createEmployeeRequest) {
         return employeeService.createEmployee(createEmployeeRequest);
     }
 
@@ -33,7 +34,7 @@ public class EmployeeController {
 
     @PutMapping("/{id}")
     public EmployeeView updateEmployee(@PathVariable Long id,
-                                       @RequestBody UpdateEmployeeRequest updateEmployeeRequest) {
+                                       @Valid @RequestBody UpdateEmployeeRequest updateEmployeeRequest) {
         return employeeService.updateEmployee(id, updateEmployeeRequest);
     }
 
