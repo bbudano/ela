@@ -4,6 +4,7 @@ import hr.bbudano.ela.team.dto.CreateTeamRequest;
 import hr.bbudano.ela.team.dto.TeamView;
 import hr.bbudano.ela.team.dto.UpdateTeamRequest;
 import hr.bbudano.ela.team.service.TeamService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +18,7 @@ public class TeamController {
     private final TeamService teamService;
 
     @PostMapping
-    public TeamView createTeam(@RequestBody CreateTeamRequest createTeamRequest) {
+    public TeamView createTeam(@Valid @RequestBody CreateTeamRequest createTeamRequest) {
         return teamService.createTeam(createTeamRequest);
     }
 
