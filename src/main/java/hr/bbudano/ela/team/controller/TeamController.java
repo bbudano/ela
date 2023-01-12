@@ -34,7 +34,7 @@ public class TeamController {
 
     @PutMapping("/{id}")
     public TeamView updateTeam(@PathVariable Long id,
-                               @RequestBody UpdateTeamRequest updateTeamRequest) {
+                               @Valid @RequestBody UpdateTeamRequest updateTeamRequest) {
         return teamService.updateTeam(id, updateTeamRequest);
     }
 
