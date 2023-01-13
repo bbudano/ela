@@ -20,7 +20,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler({ ElaException.class })
     public ResponseEntity<ErrorResponse> handleUrlShortenerException(final ElaException ex,
                                                                      WebRequest request) {
-        log.error("Exception caught by controller advice", ex);
+        logException(ex);
 
         var errorResponse = new ErrorResponse(
                 ex.getHttpStatus(),
@@ -36,6 +36,8 @@ public class CustomExceptionHandler {
     @ExceptionHandler({ MethodArgumentNotValidException.class })
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(final MethodArgumentNotValidException ex,
                                                                                WebRequest request) {
+        logException(ex);
+
         var errors = ex
                 .getAllErrors()
                 .stream()
@@ -46,6 +48,21 @@ public class CustomExceptionHandler {
                 ((ServletWebRequest) request).getRequest().getRequestURI());
 
         return new ResponseEntity<>(errorResponse, HttpStatusCode.valueOf(errorResponse.getStatus()));
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public ResponseEntity<ErrorResponse> unhandledException(Throwable ex, WebRequest request) {
+        logException(ex);
+
+        final ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                ((ServletWebRequest) request).getRequest().getRequestURI());
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    private void logException(Throwable ex) {
+        log.error("Exception caught by controller advice", ex);
     }
 
 }
