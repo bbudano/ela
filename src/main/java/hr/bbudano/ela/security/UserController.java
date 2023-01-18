@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @RestController
-@RequestMapping(path = "/api/v1/user")
+@RequestMapping(path = "/api/v1/users")
 public class UserController {
 
     @GetMapping("/profile")
