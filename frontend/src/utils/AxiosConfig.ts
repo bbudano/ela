@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { redirectToGoogleLogin } from './AuthUtils';
 
 axios.defaults.baseURL = 'http://localhost:8080'
 axios.defaults.withCredentials = true;
@@ -8,7 +9,7 @@ const setupResponseInterceptor = () => {
         return response;
     }, error => {
         if (error.response.status === 401) {
-            window.location.replace('http://localhost:8080/oauth2/authorization/google')
+            redirectToGoogleLogin();
         }
         return Promise.reject();
     });

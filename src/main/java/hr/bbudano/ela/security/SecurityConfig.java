@@ -30,15 +30,20 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/user/**").authenticated()
-                        .anyRequest().permitAll())
-                .exceptionHandling(e -> e
+                        .anyRequest().permitAll()
+                )
+                .exceptionHandling(ex -> ex
                         .authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
                 )
-                .oauth2Login(l -> l.defaultSuccessUrl("http://localhost:3000"))
-                .logout(l -> l.logoutSuccessHandler(customLogoutSuccessHandler)
+                .oauth2Login(login -> login
+                        .defaultSuccessUrl("http://localhost:3000")
+                )
+                .logout(logout -> logout
+                        .logoutSuccessHandler(customLogoutSuccessHandler)
                         .deleteCookies("JSESSIONID")
                         .invalidateHttpSession(true)
-                        .clearAuthentication(true))
+                        .clearAuthentication(true)
+                )
                 .build();
     }
 

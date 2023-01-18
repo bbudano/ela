@@ -1,15 +1,22 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { atom, useRecoilState } from 'recoil';
 import './App.css';
-import setupResponseInterceptor from './axiosConfig';
+import setupResponseInterceptor from './utils/AxiosConfig';
+import Home from './components/Home';
+import Login from './components/Login';
 
 setupResponseInterceptor();
 
+export const userData = atom({
+  key: 'userData',
+  default: null
+})
+
 function App() {
 
-  const navigate = useNavigate();
-  const [user, setUser] = useState<null | string>(null);
+  const [user, setUser] = useRecoilState(userData);
 
   useEffect(() => {
     axios.get("/api/v1/user/profile")
@@ -18,20 +25,11 @@ function App() {
       })
   }, [])
 
-  const logout = () => {
-    axios.post("/logout")
-    .then(response => {
-      setUser(null);
-      navigate("/login");
-    })
-  }
-
   return (
     <div className="App">
-      <h1>{user}</h1>
-      <button onClick={logout}>Logout</button>
       <Routes>
-        <Route path="login" element={ <div>Login page</div> } />
+        <Route index element={ <Home /> } />
+        <Route path="/login" element={ <Login /> } />
       </Routes>
     </div>
   );
