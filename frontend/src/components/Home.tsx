@@ -1,27 +1,15 @@
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { userData } from '../App';
 
 type Props = {}
 
 function Home({ }: Props) {
 
-    const navigate = useNavigate();
-    const [user, setUser] = useRecoilState(userData);
-
-    const logout = () => {
-        axios.post("/logout")
-            .then(response => {
-                setUser(null);
-                navigate("/login");
-            })
-    }
+    const user = useRecoilValue(userData);
 
     return (
         <>
-            <div>{user}</div>
-            <button onClick={logout}>Logout</button>
+            <div>{user?.name}</div>
         </>
     )
 }

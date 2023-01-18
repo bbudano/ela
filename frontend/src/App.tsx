@@ -1,15 +1,16 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { atom, useRecoilState } from 'recoil';
 import './App.css';
-import setupResponseInterceptor from './utils/AxiosConfig';
 import Home from './components/Home';
 import Login from './components/Login';
+import Navbar from './components/Navbar';
+import { getUserProfile } from './utils/AuthUtils';
+import setupResponseInterceptor from './utils/AxiosConfig';
 
 setupResponseInterceptor();
 
-export const userData = atom({
+export const userData = atom<null | { name: string }>({
   key: 'userData',
   default: null
 })
@@ -19,17 +20,15 @@ function App() {
   const [user, setUser] = useRecoilState(userData);
 
   useEffect(() => {
-    axios.get("/api/v1/user/profile")
-      .then(response => {
-        setUser(response.data.name);
-      })
+    getUserProfile().then(user => setUser(user));
   }, [])
 
   return (
     <div className="App">
+      {user && <Navbar />}
       <Routes>
-        <Route index element={ <Home /> } />
-        <Route path="/login" element={ <Login /> } />
+        <Route index element={<Home />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </div>
   );
