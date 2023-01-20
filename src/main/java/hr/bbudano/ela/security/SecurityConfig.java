@@ -21,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
     @Bean
@@ -37,6 +38,8 @@ public class SecurityConfig {
                 )
                 .oauth2Login(login -> login
                         .defaultSuccessUrl("http://localhost:3000")
+                        .userInfoEndpoint()
+                        .userService(customOAuth2UserService)
                 )
                 .logout(logout -> logout
                         .logoutSuccessHandler(customLogoutSuccessHandler)
