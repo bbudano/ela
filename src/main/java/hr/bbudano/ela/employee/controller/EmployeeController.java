@@ -3,12 +3,16 @@ package hr.bbudano.ela.employee.controller;
 import hr.bbudano.ela.employee.dto.CreateEmployeeRequest;
 import hr.bbudano.ela.employee.dto.EmployeeView;
 import hr.bbudano.ela.employee.dto.UpdateEmployeeRequest;
+import hr.bbudano.ela.employee.model.Role;
 import hr.bbudano.ela.employee.service.EmployeeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/employees")
@@ -30,6 +34,11 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public EmployeeView getEmployee(@PathVariable Long id) {
         return employeeService.getEmployee(id);
+    }
+
+    @GetMapping("/roles")
+    public List<Role> getRoles() {
+        return Arrays.asList(Role.values());
     }
 
     @PutMapping("/{id}")
