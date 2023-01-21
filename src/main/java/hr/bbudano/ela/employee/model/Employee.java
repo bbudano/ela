@@ -37,4 +37,8 @@ public class Employee {
     @Column(name = "employment_date")
     private LocalDate employmentDate;
 
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 }
