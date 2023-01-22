@@ -22,7 +22,8 @@ public class UserService {
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getRole(),
-                employee.getTeam().getName());
+                employee.getTeam().getName(),
+                employee.getImageUrl());
     }
 
 }

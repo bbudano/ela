@@ -9,6 +9,7 @@ function Home({ }: Props) {
 
     return (
         <>
+            <img src={user?.imageUrl} />
             <div>{user?.email}</div>
             <div>{user?.firstName}</div>
             <div>{user?.lastName}</div>

@@ -10,7 +10,7 @@ import setupResponseInterceptor from './utils/AxiosConfig';
 
 setupResponseInterceptor();
 
-export const userData = atom<null | { email: string, firstName: string, lastName: string, role: string, team: string }>({
+export const userData = atom<null | { email: string, firstName: string, lastName: string, role: string, team: string, imageUrl: string }>({
   key: 'userData',
   default: null
 })
