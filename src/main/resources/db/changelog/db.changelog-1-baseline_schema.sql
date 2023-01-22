@@ -12,6 +12,7 @@ create sequence dev.team_id_seq start with 10 increment by 10;
         email varchar(255) not null,
         employment_date date,
         first_name varchar(255),
+        image_url varchar(255),
         last_name varchar(255),
         role varchar(255) not null,
         team_id bigint not null,

@@ -19,9 +19,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
         var oAuth2User = super.loadUser(oAuth2UserRequest);
 
-        if (!employeeRepository.existsByEmail(oAuth2User.getAttribute("email"))) {
-            throw new InternalAuthenticationServiceException("You do not have access to this resource.");
-        }
+        var employee = employeeRepository.findByEmail(oAuth2User.getAttribute("email"))
+                .orElseThrow(() -> new InternalAuthenticationServiceException("You do not have access to this resource."));
+
+        employee.setImageUrl(oAuth2User.getAttribute("picture"));
+
+        employeeRepository.saveAndFlush(employee);
 
         return oAuth2User;
     }

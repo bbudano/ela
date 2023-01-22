@@ -42,4 +42,7 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
 }
