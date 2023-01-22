@@ -1,7 +1,8 @@
-package hr.bbudano.ela.security;
+package hr.bbudano.ela.security.service;
 
 import hr.bbudano.ela.employee.repository.EmployeeRepository;
 import hr.bbudano.ela.exception.ElaException;
+import hr.bbudano.ela.security.dto.UserProfileDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

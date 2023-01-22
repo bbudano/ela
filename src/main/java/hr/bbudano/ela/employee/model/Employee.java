@@ -1,5 +1,6 @@
 package hr.bbudano.ela.employee.model;
 
+import hr.bbudano.ela.security.Role;
 import hr.bbudano.ela.team.model.Team;
 import jakarta.persistence.*;
 import lombok.Data;

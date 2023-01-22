@@ -1,4 +1,4 @@
-package hr.bbudano.ela.employee.model;
+package hr.bbudano.ela.security;
 
 public enum Role {
 

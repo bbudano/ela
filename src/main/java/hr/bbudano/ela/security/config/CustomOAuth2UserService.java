@@ -1,4 +1,4 @@
-package hr.bbudano.ela.security;
+package hr.bbudano.ela.security.config;
 
 import hr.bbudano.ela.employee.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;

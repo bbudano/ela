@@ -1,4 +1,4 @@
-package hr.bbudano.ela.security;
+package hr.bbudano.ela.security.config;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

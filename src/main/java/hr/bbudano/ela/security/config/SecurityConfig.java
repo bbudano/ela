@@ -1,4 +1,4 @@
-package hr.bbudano.ela.security;
+package hr.bbudano.ela.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

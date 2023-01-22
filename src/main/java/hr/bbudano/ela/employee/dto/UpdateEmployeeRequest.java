@@ -1,6 +1,6 @@
 package hr.bbudano.ela.employee.dto;
 
-import hr.bbudano.ela.employee.model.Role;
+import hr.bbudano.ela.security.Role;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
