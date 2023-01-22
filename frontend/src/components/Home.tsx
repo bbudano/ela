@@ -9,7 +9,11 @@ function Home({ }: Props) {
 
     return (
         <>
-            <div>{user?.name}</div>
+            <div>{user?.email}</div>
+            <div>{user?.firstName}</div>
+            <div>{user?.lastName}</div>
+            <div>{user?.role}</div>
+            <div>{user?.team}</div>
         </>
     )
 }
