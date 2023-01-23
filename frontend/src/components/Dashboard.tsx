@@ -3,7 +3,7 @@ import { userData } from '../App';
 
 type Props = {}
 
-function Home({ }: Props) {
+function Dashboard({ }: Props) {
 
     const user = useRecoilValue(userData);
 
@@ -19,4 +19,4 @@ function Home({ }: Props) {
     )
 }
 
-export default Home
+export default Dashboard
