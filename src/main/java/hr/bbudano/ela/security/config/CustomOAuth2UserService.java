@@ -22,7 +22,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         var employee = employeeRepository.findByEmail(oAuth2User.getAttribute("email"))
                 .orElseThrow(() -> new InternalAuthenticationServiceException("You do not have access to this resource."));
 
-        employee.setImageUrl(oAuth2User.getAttribute("picture"));
+        if (oAuth2User.getAttribute("picture") != employee.getImageUrl()) {
+            employee.setImageUrl(oAuth2User.getAttribute("picture"));
+        }
 
         employeeRepository.saveAndFlush(employee);
 
