@@ -27,7 +27,7 @@ function Teams({ }: Props) {
         <>
             {teams?.map(team => {
                 return <div>
-                    {team.id}
+                    <span>{`${team.id}: ${team.name}`}</span>
                 </div>
             })}
         </>

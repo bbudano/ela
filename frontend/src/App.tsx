@@ -17,6 +17,7 @@ import { Route, Routes } from 'react-router-dom';
 import { atom, useRecoilState } from 'recoil';
 import './App.css';
 import Dashboard from './components/Dashboard';
+import Employees from './components/Employees';
 import Login from './components/Login';
 import Teams from './components/Teams';
 import { getUserProfile } from './utils/authUtil';
@@ -168,6 +169,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route index element={<Dashboard />} />
                 <Route path="/teams" element={<Teams />} />
+                <Route path="/employees" element={<Employees />} />
               </Routes>
             </Container>
           </Box>
