@@ -19,8 +19,8 @@ import './App.css';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import Teams from './components/Teams';
-import { getUserProfile } from './utils/authUtils';
-import setupResponseInterceptor from './utils/axiosConfig';
+import { getUserProfile } from './utils/authUtil';
+import setupResponseInterceptor from './utils/axiosConfiguration';
 import { mainDrawerItems } from './utils/drawerItems';
 
 setupResponseInterceptor();
