@@ -18,8 +18,9 @@ import { atom, useRecoilState } from 'recoil';
 import './App.css';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
-import { getUserProfile } from './utils/AuthUtils';
-import setupResponseInterceptor from './utils/AxiosConfig';
+import Teams from './components/Teams';
+import { getUserProfile } from './utils/authUtils';
+import setupResponseInterceptor from './utils/axiosConfig';
 import { mainDrawerItems } from './utils/drawerItems';
 
 setupResponseInterceptor();
@@ -164,8 +165,9 @@ function App() {
             <Toolbar />
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
               <Routes>
-                <Route index element={<Dashboard />} />
                 <Route path="/login" element={<Login />} />
+                <Route index element={<Dashboard />} />
+                <Route path="/teams" element={<Teams />} />
               </Routes>
             </Container>
           </Box>

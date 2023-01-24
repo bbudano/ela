@@ -1,4 +1,4 @@
-import { redirectToGoogleLogin } from "../utils/AuthUtils"
+import { redirectToGoogleLogin } from "../utils/authUtils"
 
 type Props = {}
 

@@ -3,7 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { userData } from '../App';
-import { logout } from '../utils/AuthUtils';
+import { logout } from '../utils/authUtils';
 
 type Props = {}
 

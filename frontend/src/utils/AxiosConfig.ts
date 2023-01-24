@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { redirectToGoogleLogin } from './AuthUtils';
+import { redirectToGoogleLogin } from './authUtils';
 
 axios.defaults.baseURL = 'http://localhost:8080'
 axios.defaults.withCredentials = true;
