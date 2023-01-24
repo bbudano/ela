@@ -18,6 +18,7 @@ import { atom, useRecoilState } from 'recoil';
 import './App.css';
 import Dashboard from './components/Dashboard';
 import Employees from './components/Employees';
+import LeaveTypes from './components/LeaveTypes';
 import Login from './components/Login';
 import Teams from './components/Teams';
 import { getUserProfile } from './utils/authUtil';
@@ -170,6 +171,7 @@ function App() {
                 <Route index element={<Dashboard />} />
                 <Route path="/teams" element={<Teams />} />
                 <Route path="/employees" element={<Employees />} />
+                <Route path="/leave-types" element={<LeaveTypes />} />
               </Routes>
             </Container>
           </Box>
