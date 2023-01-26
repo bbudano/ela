@@ -22,7 +22,7 @@ import LeaveTypes from './components/LeaveTypes';
 import Login from './components/Login';
 import Teams from './components/Teams';
 import { getUserProfile } from './utils/authUtil';
-import setupResponseInterceptor from './utils/axiosConfiguration';
+import { setupResponseInterceptor } from './utils/axiosConfiguration';
 import { mainDrawerItems } from './utils/drawerItems';
 
 setupResponseInterceptor();

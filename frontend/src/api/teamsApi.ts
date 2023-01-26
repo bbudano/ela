@@ -1,9 +1,5 @@
 import axios from "axios";
-
-type Pageable = {
-    page?: number;
-    size?: number;
-}
+import { Pageable } from "../utils/axiosConfiguration";
 
 export type TeamsResponse = [] | {
     id: number;
