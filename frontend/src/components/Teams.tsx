@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useEffect } from "react";
-import { atom, useRecoilState } from "recoil"
+import { atom, useRecoilState } from "recoil";
+import { getTeams, TeamsResponse } from "../api/teamsApi";
 
 type Props = {}
 
-export const teamsData = atom<[] | [{id: number, name: string}]>({
+export const teamsData = atom<TeamsResponse>({
     key: 'teamsData',
     default: []
 })
@@ -13,20 +13,14 @@ function Teams({ }: Props) {
 
     const [teams, setTeams] = useRecoilState(teamsData);
 
-    const getTeams = () => {
-        axios.get('/api/v1/teams')
-            .then(response => setTeams(response.data.content))
-            .catch(error => setTeams([]));
-    }
-
     useEffect(() => {
-        getTeams();
+        getTeams({ page: 0, size: 10 }).then(response => setTeams(response));
     }, [])
 
     return (
         <>
-            {teams?.map(team => {
-                return <div>
+            {teams?.map((team) => {
+                return <div key={team.id}>
                     <span>{`${team.id}: ${team.name}`}</span>
                 </div>
             })}
