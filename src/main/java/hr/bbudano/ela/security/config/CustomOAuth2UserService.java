@@ -28,7 +28,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         employeeRepository.saveAndFlush(employee);
 
-        return oAuth2User;
+        return CustomOAuth2User.extendOAuth2User(employee, oAuth2User.getAttributes());
     }
 
 }
