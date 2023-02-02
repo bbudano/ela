@@ -1,11 +1,12 @@
 package hr.bbudano.ela.leave.controller;
 
+import hr.bbudano.ela.leave.dto.CreateLeaveTypeRequest;
 import hr.bbudano.ela.leave.dto.LeaveTypeView;
 import hr.bbudano.ela.leave.service.LeaveTypeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,6 +16,12 @@ import java.util.List;
 public class LeaveTypeController {
 
     private final LeaveTypeService leaveTypeService;
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public LeaveTypeView createLeaveType(@Valid @RequestBody CreateLeaveTypeRequest createLeaveTypeRequest) {
+        return leaveTypeService.createLeaveType(createLeaveTypeRequest);
+    }
 
     @GetMapping
     public List<LeaveTypeView> getLeaveTypes() {

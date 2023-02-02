@@ -1,5 +1,6 @@
 package hr.bbudano.ela.leave.service;
 
+import hr.bbudano.ela.leave.dto.CreateLeaveTypeRequest;
 import hr.bbudano.ela.leave.dto.LeaveTypeView;
 import hr.bbudano.ela.leave.mapper.LeaveTypeMapper;
 import hr.bbudano.ela.leave.repository.LeaveTypeRepository;
@@ -17,6 +18,14 @@ public class LeaveTypeService {
     private final LeaveTypeMapper leaveTypeMapper;
 
     // REST
+
+    public LeaveTypeView createLeaveType(CreateLeaveTypeRequest createLeaveTypeRequest) {
+        var leaveType = leaveTypeMapper.toLeave(createLeaveTypeRequest);
+
+        leaveTypeRepository.saveAndFlush(leaveType);
+
+        return leaveTypeMapper.toLeaveTypeView(leaveType);
+    }
 
     @Transactional(readOnly = true)
     public List<LeaveTypeView> getLeaveTypes() {
