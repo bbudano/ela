@@ -4,10 +4,13 @@ import hr.bbudano.ela.team.dto.CreateTeamRequest;
 import hr.bbudano.ela.team.dto.TeamView;
 import hr.bbudano.ela.team.dto.UpdateTeamRequest;
 import hr.bbudano.ela.team.service.TeamService;
+import hr.bbudano.ela.utils.HttpUtils;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,10 +19,16 @@ import org.springframework.web.bind.annotation.*;
 public class TeamController {
 
     private final TeamService teamService;
+    private final HttpUtils httpUtils;
 
     @PostMapping
-    public TeamView createTeam(@Valid @RequestBody CreateTeamRequest createTeamRequest) {
-        return teamService.createTeam(createTeamRequest);
+    public ResponseEntity<TeamView> createTeam(@Valid @RequestBody CreateTeamRequest createTeamRequest,
+                                               HttpServletRequest httpServletRequest) {
+        var team = teamService.createTeam(createTeamRequest);
+
+        return ResponseEntity
+                .created(httpUtils.getLocationUri(httpServletRequest, team.id()))
+                .body(team);
     }
 
     @GetMapping
