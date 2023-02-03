@@ -75,7 +75,7 @@ public class EmployeeService {
 
     // General
 
-    public Employee getEmployeeById(Long id) {
+    private Employee getEmployeeById(Long id) {
         return employeeRepository
                 .findById(id)
                 .orElseThrow(() ->
