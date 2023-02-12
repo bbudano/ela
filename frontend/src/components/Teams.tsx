@@ -47,11 +47,6 @@ function Teams({ }: Props) {
                 onPageChange={() => { }}
                 onRowsPerPageChange={() => { }}
             />
-            {/* {teams?.map((team) => {
-                return <div key={team.id}>
-                    <span>{`${team.id}: ${team.name}`}</span>
-                </div>
-            })} */}
         </>
     )
 }
